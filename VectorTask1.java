@@ -6,7 +6,7 @@ public class VectorTask1 {
 //[1,2,3,4,5]  , k = 2
 //[4,5,1,2,3]
     public static void main(String[] args) {
-        Vector<Integer> v = new Vector<>(Arrays.asList(1, 2, 3, 4, 5));
+        Vector<Integer> v = new Vector<>(Arrays.asList(10,20,30,40,50));
         int k = 2;
         int n = v.size();
 
