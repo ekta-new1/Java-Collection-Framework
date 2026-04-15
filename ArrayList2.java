@@ -1,26 +1,23 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-
 public class ArrayList2 {
 //count frequency of each element in arraylist
+    //[1,1,2,2,2,3]
+    //1->2
+    //2->3
+    //3->1
 public static void main(String[] args) {
-    ArrayList<Integer> list =new ArrayList<>(Arrays.asList(10,10,20,30,30,30));
-    ArrayList<Integer> temp=new ArrayList<>(list);
-    ArrayList<String> ans=new ArrayList<>();
-    for(int i=0;i<temp.size();i++){
+    ArrayList<Integer> list =new ArrayList<>(Arrays.asList(10,10,10,20,30));
+    for(int i=0;i<list.size();i++){
         int count=1;
-        for(int j=i+1;j<temp.size();j++){
-            if(temp.get(i)==temp.get(j)){
+        for(int j=i+1;j<list.size();j++){
+            if(list.get(i)==list.get(j)){
                 count++;
-                temp.remove(j);
+                list.remove(j);
+                j--;
             }
-
         }
-        String str=(temp.get(i))+"->"+(count);
-        ans.add(str);
+        System.out.println((list.get(i))+"->"+(count));
     }
-    System.out.println(ans);
-
-
     }
 }
