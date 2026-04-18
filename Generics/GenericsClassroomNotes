@@ -1,0 +1,270 @@
+Generics in Java are a feature that allows you to write type-safe and reusable code by enabling classes, interfaces, and methods to operate on different data types without sacrificing type safety.
+
+Before generics, Java used Object to store any type:
+
+ArrayList list = new ArrayList();
+list.add("Hello");
+list.add(10); // allowed
+String s = (String) list.get(1); // Runtime error (ClassCastException)
+
+Problem:
+No type safety
+Errors happen at runtime
+
+Generics solve this by specifying the type at compile time:
+
+ArrayList<String> list = new ArrayList<>();
+list.add("Hello");
+// list.add(10);  Compile-time error
+String s = list.get(0); // No casting needed
+
+Benefits:
+
+Type safety
+No explicit casting
+Errors caught at compile time
+Cleaner and reusable code
+
+You can create your own generic class using <T>:
+
+//Here Box is generic class and T is type parameter.
+class Box<T> {
+    T value;
+    public void set(T value) {
+        this.value = value;
+    }
+    public T get() {
+        return value;
+    }
+    public static void main(String[] args) {
+        Box<Integer> i = new Box<>();
+        i.set(100);
+        System.out.println(i.get());
+        Box<String> s = new Box<>();
+        s.set("Hello");
+        System.out.println(s.get());
+        Box<Double> b = new Box<>();
+        b.set(2.5);
+        System.out.println(b.get());
+    }
+}
+
+Generic Method - A Generic Method in Java is a method that can work with any data type, just like generic classes, but the flexibility is limited to that specific method.
+
+class Demo {
+    public static <T> void printData(T data) {
+        System.out.println(data);
+    }
+
+    public static void main(String[] args) {
+        printData(10);        // Integer
+        printData("Ekta");    // String
+        printData(5.5);       // Double
+    }
+}
+
+Same method works for different data types.
+
+Generic Method with Array -
+public class Demo {
+    public static <T> void printArray(T[] arr) {
+        for (T element : arr) {
+            System.out.println(element);
+        }
+    }
+
+    public static void main(String[] args) {
+        printArray(new Integer[]{1, 2, 3});
+        printArray(new String[]{"A", "B", "C"});
+    }
+}
+
+Generic Method with Return Type -
+public class Demo {
+    public static <T> T getFirstElement(T[] arr) {
+        return arr[0];
+    }
+
+    public static void main(String[] args) {
+        Integer[] nums = {1, 2, 3};
+        String[] names = {"A", "B"};
+
+        System.out.println(getFirstElement(nums));
+        System.out.println(getFirstElement(names));
+    }
+}
+
+Bounded Generic Method - You can restrict the type:
+public class Demo {
+    public static <T extends Number> void printNumber(T num) {
+        System.out.println(num);
+    }
+}
+
+Only Integer, Double, etc. allowed (not String).
+
+A generic method with multiple parameters means the method can accept more than one type parameter (like <T, U, V>) and work with different data types at the same time.
+
+class Demo {
+    public static <T, U> void printData(T a, U b) {
+        System.out.println("First: " + a);
+        System.out.println("Second: " + b);
+    }
+
+    public static void main(String[] args) {
+        printData(10, "Ekta");
+        printData("Java", 99.5);
+    }
+}
+
+Output works for mixed types like:
+Integer + String
+String + Double
+
+Wildcards in Java Generics are used when you don’t know the exact type or want to make your code more flexible when working with different generic types. They are represented by ?
+
+Problem without wildcards:
+void printList(List<String> list) { }
+This only works for List<String>
+Won’t accept List<Integer>, List<Double>, etc.
+
+Unbounded Wildcard (<?>)
+void printList(List<?> list) {
+    for (Object obj : list) {
+        System.out.println(obj);
+    }
+}
+
+Works with:
+
+List<String>
+List<Integer>
+List<Double>
+
+But: 
+You cannot add elements (except null)
+
+Upper Bounded Wildcard (<? extends T>)
+Used when you want to read data (only) from a structure.
+
+public static void printNumbers(List<? extends Number> list) {
+    for (Number num : list) {
+        System.out.println(num);
+    }
+}
+
+Accepts:
+
+List<Integer>
+List<Double>
+List<Float>
+
+Rule:
+
+You can read
+Cannot add elements
+
+Lower Bounded Wildcard (<? super T>)
+Used when you want to add data (write) into a structure.
+
+public static void addNumbers(List<? super Integer> list) {
+    list.add(10);
+    list.add(20);
+}
+
+Accepts:
+
+List<Integer>
+List<Number>
+List<Object>
+
+Rule:
+You can add
+Reading gives Object
+
+PECS Rule -
+PECS = Producer Extends, Consumer Super
+
+<? extends T> → Producer (read only)
+<? super T> → Consumer (write only)
+
+Example -
+
+class Demo {
+    public static void main(String[] args) {
+        List<Integer> intList = new ArrayList<>();
+        List<Double> doubleList = new ArrayList<>();
+
+        printNumbers(intList);
+        printNumbers(doubleList);
+    }
+
+    public static void printNumbers(List<? extends Number> list) {
+        for (Number n : list) {
+            System.out.println(n);
+        }
+    }
+}
+
+Covariance and contravariance describe how subtype relationships behave with generic types, especially when using wildcards.
+
+List<Integer> intList = new ArrayList<>();
+List<Number> numList = intList;         //NOT allowed
+
+Even though Integer is a subclass of Number,
+List<Integer> is NOT a subclass of List<Number>.
+
+This is why we need variance (covariance & contravariance).
+
+1. Covariance (? extends T)
+Means: Accept this type or its subclasses
+
+List<? extends Number> list;
+
+Can hold:
+
+List<Integer>
+List<Double>
+List<Float>
+
+Example -
+public static void printNumbers(List<? extends Number> list) {
+    for (Number n : list) {
+        System.out.println(n);
+    }
+}
+
+You can read safely as Number
+But you cannot add elements
+
+Why?
+
+Because the exact type is unknown:
+
+It could be List<Integer> or List<Double>
+
+Covariance = Read Only
+It follows:
+"Producer Extends"
+
+2. Contravariance (? super T)
+Means: Accept this type or its superclasses
+
+List<? super Integer> list;
+
+Can hold:
+List<Integer>
+List<Number>
+List<Object>
+
+Example -
+public static void addNumbers(List<? super Integer> list) {
+    list.add(10);
+    list.add(20);
+}
+
+You can add Integer safely
+But when reading → only Object
+
+Contravariance = Write Only
+It follows: "Consumer Super"
