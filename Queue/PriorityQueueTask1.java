@@ -7,26 +7,6 @@ import java.util.Queue;
 //Input: [7, 10, 4, 3, 20, 15], k = 3
 //Output: 3 4 7
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public class PriorityQueueTask1 {
     public static void main(String[] args) {
         int[] arr = {7,10,4,3,20,15};
