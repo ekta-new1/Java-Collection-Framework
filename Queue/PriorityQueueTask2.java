@@ -9,34 +9,6 @@ public class PriorityQueueTask2 {
 // Output: 5
 //Explanation - 5 is the second largest element
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public static int findKthLargest(int[] arr, int k) {
 
             // Min Heap
