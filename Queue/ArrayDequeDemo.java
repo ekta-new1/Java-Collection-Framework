@@ -5,7 +5,8 @@ import java.util.Deque;
 
 public class ArrayDequeDemo {
     public static void main(String[] args) {
-
+//Deque(Double-ended queue) is interface
+//ArrayDeque is class implemented withthe help of Deque interface(which means elements can be added and deleted from both the ends)  
         Deque<Integer> dq = new ArrayDeque<>();
 
         // Adding elements
