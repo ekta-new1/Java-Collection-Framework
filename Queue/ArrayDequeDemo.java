@@ -7,6 +7,11 @@ public class ArrayDequeDemo {
     public static void main(String[] args) {
 //Deque(Double-ended queue) is interface
 //ArrayDeque is class implemented with the help of Deque interface(which means elements can be added and deleted from both the ends)  
+//It implements a resizable array-based deque, which means you can insert and remove elements from both ends (front and rear) efficiently.
+//A Deque (Double Ended Queue) → works like: Queue (FIFO) and Stack (LIFO)
+//No Null Elements allowed
+//Not Thread-Safe (means Not synchronized)
+        
         Deque<Integer> dq = new ArrayDeque<>();
 
         // Adding elements
