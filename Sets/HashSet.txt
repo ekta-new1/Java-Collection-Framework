@@ -1,0 +1,234 @@
+HashSet is part of Java Collections Framework
+Internally, it is backed by a HashMap
+
+HashSet<E> set = new HashSet<>();
+
+Internally becomes:
+
+HashMap<K, V> map = new HashMap<>();
+
+Your element → key
+A dummy object → value
+
+map.put(element, PRESENT);
+
+HashSet internally stores data like this:
+HashMap Structure:
+
+Bucket Array (Index based)
+---------------------------------
+0  → null
+1  → [10]
+2  → null
+3  → [30 → 50] (collision → linked list / tree)
+4  → [20]
+------------------------------------------------
+
+Each index is called a bucket
+
+Step-by-Step: How add() Works -
+Example:
+
+HashSet<Integer> set = new HashSet<>();
+set.add(10);
+set.add(20);
+set.add(30);
+
+Step 1: HashCode Generation
+
+For every element:
+
+int hash = element.hashCode();
+
+Example:
+
+10 → hashCode = 10
+20 → hashCode = 20
+30 → hashCode = 30
+
+Step 2: Convert Hash → Index
+index = hash % capacity;
+
+(Default capacity = 16)
+
+10 % 16 = 10 index position of bucket
+20 % 16 = 4
+30 % 16 = 14
+
+So elements go into different buckets
+
+Step 3: Insert into Bucket
+If bucket is empty → insert directly
+If not → collision handling
+Collision Handling-
+Case:
+set.add(10);
+set.add(26);
+10 % 16 = 10
+26 % 16 = 10   //collision
+
+Both go to same bucket
+
+Before Java 8
+Stored as Linked List
+Bucket[10] → 10 → 26
+After Java 8 (Optimized)
+If list becomes long → converts to Balanced Tree (Red-Black Tree)
+Bucket[10] → Tree structure
+
+Step 4 : How Duplicates Are Prevented - 
+Example:
+set.add(10);
+set.add(10);
+Process:
+HashCode same
+Goes to same bucket
+We use equals()
+
+If equal → not added
+
+Rule:
+hashCode() decides bucket
+equals() decides duplicate or not
+
+contains() Internal Working
+set.contains(20);
+
+Steps:
+
+Generate hash
+Find bucket index
+Traverse bucket (list/tree)
+Use equals()
+
+Fast because it directly jumps to bucket
+
+remove() Internal Working
+set.remove(20);
+
+Steps:
+
+Find bucket using hash
+Search element using equals()
+Remove it
+-----------------------------------------------------------------------
+set.add(10);
+set.add(20);
+set.add(30);
+set.add(10);
+set.add(26);
+
+
+Default capacity = 16
+Formula:
+index = hashCode % 16
+
+For integers:
+
+hashCode = number itself
+Step 1: Add 10
+hash = 10
+index = 10 % 16 = 10
+
+Bucket 10 is empty → insert
+
+Bucket[10] → 10
+
+Step 2: Add 20
+hash = 20
+index = 20 % 16 = 4
+
+Bucket 4 is empty → insert
+
+Bucket[4] → 20
+Bucket[10] → 10
+
+Step 3: Add 30
+hash = 30
+index = 30 % 16 = 14
+
+Bucket 14 is empty → insert
+
+Bucket[4]  → 20
+Bucket[10] → 10
+Bucket[14] → 30
+
+Step 4: Add 10 (Duplicate)
+hash = 10
+index = 10
+
+Go to Bucket 10:
+
+Bucket[10] → 10
+
+Now check:
+
+equals(10, 10) → true
+
+Duplicate detected → NOT added
+
+Structure remains SAME:
+
+Bucket[10] → 10
+
+Step 5: Add 26 (Collision Case)
+hash = 26
+index = 26 % 16 = 10
+
+Bucket 10 already has:
+
+Bucket[10] → 10
+
+Now:
+
+Check duplicate?
+equals(26, 10) → false
+
+Not duplicate → insert
+
+Collision Handling
+
+Since same bucket:
+
+Bucket[10] → 10 → 26
+
+(Linked list form)
+
+Final Bucket Structure
+Index   Value
+------------------------
+4    → 20
+10   → 10 → 26
+14   → 30
+Rest → empty
+
+Visual Summary -
+Bucket Array (size = 16)
+
+[0]  
+[1]  
+[2]  
+[3]  
+[4]   → 20
+[5]  
+[6]  
+[7]  
+[8]  
+[9]  
+[10]  → 10 → 26   (collision handled here)
+[11]  
+[12]  
+[13]  
+[14]  → 30
+[15]
+
+1. No duplicates
+Second 10 was rejected
+2. Fast access
+Direct bucket jump using hash
+3. Collision handled
+10 and 26 share same bucket
+
+
+hashCode() → decides bucket
+equals() → checks duplicate inside bucket
