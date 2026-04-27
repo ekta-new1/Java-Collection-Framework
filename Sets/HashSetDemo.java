@@ -48,7 +48,7 @@ public class HashSetDemo {
         set1.addAll(set2);
         System.out.println("After addAll(): " + set1);
 
-        // removeAll() - Remove common elements
+        // removeAll() - Remove common elements from set1 here
         set1.removeAll(set2);
         System.out.println("After removeAll(): " + set1);
 
