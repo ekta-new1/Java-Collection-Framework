@@ -5,7 +5,7 @@ HashSet<E> set = new HashSet<>();
 
 Internally becomes:
 
-HashMap<K, V> map = new HashMap<>();
+HashMap<Key, Value> map = new HashMap<>();
 
 Your element → key
 A dummy object → value
