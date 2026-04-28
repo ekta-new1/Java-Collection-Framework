@@ -11,6 +11,7 @@ public class PriorityQueueDemo {
             pq.add("cat");
             pq.offer("ball");
             //apple,ball,cat,banana
+//Uses min-heap internally(a is considered smallest and z largest)                
 
             System.out.println("Initial Queue (not sorted): " + pq);
 
