@@ -1,0 +1,97 @@
+LinkedHashSet uses LinkedHashMap, which maintains a doubly linked list internally.
+So: LinkedHashSet → LinkedHashMap → Doubly Linked List
+
+How Doubly Linked List Maintains Order?
+Let’s insert elements step by step:
+
+set.add(10);
+set.add(20);
+set.add(30);
+
+Step 1: Add 10
+Inserted into bucket
+Also becomes head and tail
+HEAD → 10 → NULL
+
+Step 2: Add 20
+Goes to its bucket
+Added after 10 in linked list
+10 ⇄ 20
+
+Internally:
+
+10.after = 20
+20.before = 10
+
+Step 3: Add 30
+10 ⇄ 20 ⇄ 30
+
+Internally:
+
+20.after = 30
+30.before = 20
+
+How Iteration Works?
+
+When you print:
+
+System.out.println(set);
+
+It does NOT go bucket by bucket
+It starts from head of linked list:
+
+HEAD → 10 → 20 → 30
+
+So output:
+[10, 20, 30]
+
+What if duplicate comes?
+set.add(20);
+Hash check → already exists
+Not added
+Linked list remains unchanged
+-----------------------------------------------------
+Buckets → cupboard storing files (fast access)
+Doubly Linked List → a queue of entries in order
+
+Even if files are stored randomly inside cupboard,
+you still maintain a separate list of who came first
+
+
+LinkedHashSet maintains insertion order using a doubly linked list (via LinkedHashMap), where each element is connected using before and after pointers, while hashing is still used for fast access.
+---------------------------------------------------------
+What is EXTRA in LinkedHashSet?
+
+Same hashing 
+Same bucket 
+Same collision handling 
+
+But adds:
+
+Doubly linked list (via LinkedHashMap)
+Maintains insertion order
+-------------------------------------------------
+Real Life Example -
+YouTube Video Watch History -
+HashSet -
+You just want to store unique videos watched
+Order doesn’t matter
+
+This is bad for history tracking 
+
+LinkedHashSet stores:
+Unique videos
+Order you watched them
+
+Video1 → Video2 → Video3
+
+You need insertion order → use LinkedHashSet
+------------------------------------------------------
+When performance is priority 
+
+HashSet is:
+
+Slightly faster
+Uses less memory (no linked list)
+
+In large data / competitive coding → prefer HashSet
