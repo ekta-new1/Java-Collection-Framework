@@ -12,11 +12,6 @@ public class HashSetTask1 {
         System.out.println(longestSequence(arr)); // 4
     }
 
-
-
-
-
-
     public static int longestSequence(int[] nums) {
         HashSet<Integer> set = new HashSet<>();
         for (int num : nums) {
