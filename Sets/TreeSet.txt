@@ -1,0 +1,37 @@
+A TreeSet is a collection in Java that stores unique elements in sorted order.
+
+TreeSet is part of the Java Collections Framework and belongs to: java.util.TreeSet 
+
+No duplicate elements
+Automatically sorted (ascending by default)
+Internally uses a Red-Black Tree (self-balancing BST)
+
+Tree follows: Left < Root < Right
+Output is generated using:
+Inorder Traversal (LNR)
+That’s why output is always sorted
+
+Use TreeSet when:
+You need sorted data
+You need range operations (like greater/less than)
+You don’t want duplicates
+
+Functions ONLY in TreeSet-
+These methods DO NOT exist in HashSet or LinkedHashSet:
+first()
+last()
+higher()
+lower()
+ceiling()
+floor()
+pollFirst()
+pollLast()
+subSet()
+headSet()
+tailSet()
+descendingSet()
+
+Real-Life Example
+A ranking leaderboard
+A sorted contact list
+A priority system where order matters
