@@ -27,10 +27,10 @@ public class TreeSetExample {
         // lower(x) -> returns element strictly smaller than x
         System.out.println("Lower than 30: " + set.lower(30));
 
-        // ceiling(x) -> returns next bigger element or same
+        // ceiling(x) -> returns equal or bigger element
         System.out.println("Ceiling of 25: " + set.ceiling(25));
 
-        // floor(x) -> returns next smaller element or smaller
+        // floor(x) -> returns equal or smaller element
         System.out.println("Floor of 25: " + set.floor(25));
 
         // pollFirst() -> removes and returns the first (smallest) element
