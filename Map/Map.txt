@@ -1,0 +1,135 @@
+Map is an interface in java.util package used to store data in key–value pairs.
+
+Key → Value
+Example:
+"A" → 90 
+"A" -> 100 
+"B" → 70  
+"C" → 80
+
+Keys are unique, Values can be duplicate
+
+We use its classes like:
+
+HashMap - Output in random order
+LinkedHashMap - Output in same order in which we insert elements
+TreeMap - Output in sorted order
+
+Basic Example -
+
+Map<String, Integer> map = new HashMap<>();
+map.put("Sam", 40);
+map.put("Doe", 50);
+System.out.println(map);
+
+-----------------------------------------------------
+
+HashMap class - 
+HashMap stores data in bucket(array) using Hashing.
+Each bucket can store:
+one element
+or multiple elements (if collision happens)
+
+Internal Working-
+
+Step 1: Key → HashCode
+
+Step 2: Find index position of bucket array
+index position = hash % array_size(16)
+
+This decides where data will go-
+
+Step 3: Store in Bucket
+Each bucket stores:
+(key, value)
+
+Step 4: Collision Handling
+
+If two keys map to same bucket:
+
+Java uses:
+Linked List (earlier)
+Balanced Tree (Red-Black Tree) (Java 8+)
+---------------------------------------------------
+Key → hashCode → index position → store in bucket array
+----------------------------------------------------
+HashMap<Integer, String> map = new HashMap<>();
+
+map.put(10, "A");
+map.put(20, "B");
+map.put(10, "C");
+map.put(26, "D");
+
+Step 1: map.put(10, "A")
+1. Calculate hashCode
+hashCode(10) = 10
+2. Find index
+index = hashCode % 16
+index = 10 % 16 = 10
+3. Insert
+Bucket[10] → (10, A)
+
+Step 2: map.put(20, "B")
+hashCode(20) = 20
+index = 20 % 16 = 4
+Bucket[4] → (20, B)
+
+Step 3: map.put(10, "C") 
+hashCode(10) = 10
+index = 10
+Bucket already has: (10, A)
+
+Now HashMap checks: key.equals(existingKey)?
+10 == 10 → YES
+So it only updates value
+(10, A)  will become (10, C)
+
+Step 4: map.put(26, "D") 
+hashCode(26) = 26
+index = 26 % 16 = 10
+
+Bucket[10] already has:(10, C)
+Collision happens
+key.equals(existingKey)?
+26 == 10 → NO
+So, it creates a linked list in that bucket (before java 8 version)
+Bucket[10]: (10, C) → (26, D)
+
+Final Structure of Bucket array -
+Index 4  → (20, B)
+Index 10 → (10, C) → (26, D)
+Rest of the indexes will be empty.
+-----------------------------------------------------------------
+LinkedHashMap = HashMap + Doubly Linked List
+
+HashMap → for fast storage, where to store (bucket array)
+Doubly Linked List → to maintain insertion order
+Slightly slower than HashMap.
+
+Real-life examples -
+Browser history
+Gpay transaction history
+Order History in Flipkart, Amazon, Blinkit
+----------------------------------------------------------------
+TreeMap stores data in key–value pairs like Map but it always keeps keys sorted
+
+TreeMap = Map + Sorting (by keys)
+
+Automatically sorts
+Uses Red-Black Tree internally to sort.
+Slower(O(log n)) than HashMap and LinkedHashMap because it uses a tree (Red-Black Tree) and every operation requires traversing the tree.
+
+Real-life examples-
+Phonebook
+Leaderboards / rankings
+Scheduling system (sorted by time)
+Stock prices (sorted data)
+--------------------------------------------------------
+
+
+
+
+
+
+
+
