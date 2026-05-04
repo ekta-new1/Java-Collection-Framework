@@ -1,0 +1,94 @@
+DRY RUN -
+Initial list:
+[90, 70, 80]
+
+Comparison 1
+Java picks two elements:
+
+this = Student(90)
+s    = Student(70)
+Call:
+this.compareTo(s)
+→ 90 - 70 = +20, Positive → means: swap
+90 > 70 → WRONG ORDER
+List becomes:
+[70, 90, 80]
+
+Comparison 2
+this = Student(90)
+s    = Student(80)
+90 - 80 = +10, Positive → swap
+List becomes:
+[70, 80, 90]
+
+Comparison 3
+this = Student(70)
+s    = Student(80)
+70 - 80 = -10, Negative → correct order → no swap
+
+FINAL SORTED LIST:
+[70, 80, 90]
+
+
+---------------------------------------
+Step 1: Creation
+new Student(90)
+→ constructor receives 90
+→ this.marks = 90
+Step 2: Stored in list
+ArrayList → stores object reference
+Step 3: Sorting
+Collections.sort()
+→ picks object from list
+→ passes into compareTo()
+Step 4: Comparison
+this.marks (90)
+s.marks (70)
+→ 90 - 70 = 20
+------------------------------------------
+VISUAL FLOW
+list.add(new Student(90))
+        ↓
+constructor → marks = 90
+        ↓
+stored in ArrayList
+        ↓
+Collections.sort()
+        ↓
+compareTo(this=90, s=70)
+        ↓
+returns +ve → swap
+-----------------------------------------
+Why do we need Comparable or comparator ?
+ArrayList<Integer> list = new ArrayList<>();
+list.add(3);
+list.add(1);
+list.add(2);
+
+Collections.sort(list);
+
+This works WITHOUT you writing Comparable/Comparator
+BUT internally: Integer already implements Comparable
+So Java already knows how to compare integers.
+
+Try the SAME with your own class -
+class Student {
+    int marks;
+}
+Collections.sort(list);
+
+You will get: ClassCastException
+Because Java has NO idea:
+“How to compare two Student objects?
+So that is why comparator and comparable are necessary when we want sorting of custom objects.
+-----------------------------------------------------------
+Use Comparable when:
+You have a clear default sorting rule
+Sorting logic belongs to the class itself
+You will sort objects frequently
+
+Use Comparable when you need:
+Multiple sorting (marks, name, age)
+Dynamic sorting
+Sorting logic changes often
+---------------------------------------------
