@@ -25,7 +25,7 @@ public class MapExample {
         // get(key) → fetch value
         System.out.println("Marks of John: " + map.get("John"));
 
-        //returns value of the key if the key exists otherwise it returns defaultValue.
+        //getOrDefault(key, DefaultValue) - returns value of the key if the key exists otherwise it returns defaultValue.
         System.out.println(map.getOrDefault("Sam",0));
         System.out.println(map.getOrDefault("Ekta", 0));
 
