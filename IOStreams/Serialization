@@ -1,19 +1,21 @@
 Serialization and Deserialization in Java -
-Imagine we created an object in Java.
-Example:
-Student s = new Student("Ekta", 101);
-This object exists only while the program is running (inside RAM).
-But what if we want to:
-save it in a file?
-send it over internet?
-store it in database?
-use it later after program closes?
+
+Whenever we create an object in Java, it exists only while the program is running (inside RAM).
+
+// Student s = new Student("Ekta", 101);
+
+But with the help of serialization, we can -
+save it in a file
+send it over internet
+store it in database
+use it later after program closes
 
 Java cannot directly store objects in files.
 So Java converts the object into bytes.
 This process is called Serialization
 
 And when we convert those bytes back into object then it is called Deserialization.
+
 Real-life example -
 Suppose you have a toy car.
 Keeping it in a box for transport = Serialization
@@ -78,7 +80,7 @@ public class Main {
     }
 }
 
-What gets stored in file?
+What gets stored in Demo file?
 Not readable text because object is stored in binary form.
 
 Deserialization Example-
@@ -91,11 +93,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        FileInputStream fis =
-                new FileInputStream("student.txt");
+        FileInputStream fis = new FileInputStream("student.txt");
 
-        ObjectInputStream ois =
-                new ObjectInputStream(fis);
+        ObjectInputStream ois = new ObjectInputStream(fis);
 
         // Read object
         Student s = (Student) ois.readObject();
