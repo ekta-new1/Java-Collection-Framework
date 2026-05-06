@@ -1,0 +1,173 @@
+Serialization and Deserialization in Java -
+Imagine we created an object in Java.
+Example:
+Student s = new Student("Ekta", 101);
+This object exists only while the program is running (inside RAM).
+But what if we want to:
+save it in a file?
+send it over internet?
+store it in database?
+use it later after program closes?
+
+Java cannot directly store objects in files.
+So Java converts the object into bytes.
+This process is called Serialization
+
+And when we convert those bytes back into object then it is called Deserialization.
+Real-life example -
+Suppose you have a toy car.
+Keeping it in a box for transport = Serialization
+Opening the box and getting back the toy = Deserialization
+Object → bytes → object
+
+Serialization-Converting an object into byte stream. (Object → Byte Stream)
+Deserialization-Converting byte stream back into object. (Byte Stream → Object)
+
+It is used for -
+saving object in file
+sending object over network
+caching
+storing session data
+-------------------------------------------------------------------
+To serialize an object, class must implement:
+Serializable interface
+
+It is a marker interface.
+Marker interface means:
+interface with no methods
+
+Example -
+Step 1: Create Serializable Class
+import java.io.Serializable;
+
+class Student implements Serializable {
+
+    int id;
+    String name;
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+It is important to implement Serializable interface because it tells JVM:
+"This object is allowed to be converted into bytes." Without this, serialization will fail
+
+Step 2: Serialization Example
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Student s1 = new Student(101, "Ekta");
+        // Connect file
+        FileOutputStream fos =
+                new FileOutputStream("student.txt");
+
+        // Convert object into bytes
+        ObjectOutputStream oos =
+                new ObjectOutputStream(fos);
+
+        // Write object
+        oos.writeObject(s1);
+
+        oos.close();
+        fos.close();
+
+        System.out.println("Object Serialized");
+    }
+}
+
+What gets stored in file?
+Not readable text because object is stored in binary form.
+
+Deserialization Example-
+
+Now we will read object back from file.
+
+import java.io.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+
+        FileInputStream fis =
+                new FileInputStream("student.txt");
+
+        ObjectInputStream ois =
+                new ObjectInputStream(fis);
+
+        // Read object
+        Student s = (Student) ois.readObject();
+
+        ois.close();
+        fis.close();
+
+        System.out.println(s.id);
+        System.out.println(s.name);
+    }
+}
+
+Output
+101
+Ekta
+
+Object restored successfully.
+
+
+Student Object
+       ↓
+Serialization
+       ↓
+Byte Stream/File
+       ↓
+Deserialization
+       ↓
+Student Object Again
+
+Serializable is Mandatory
+
+Without: implements Serializable, you get: NotSerializableException
+-------------------------------------------------------------------------
+transient Keyword
+
+Sometimes we don't want some fields to be serialized, then use transient keyword.
+
+Example:
+password
+OTP
+temporary data
+
+Example:
+
+class Student implements Serializable {
+
+    String name;
+
+    transient String password;
+}
+
+Now password will NOT be saved.
+
+Example
+Student s = new Student();
+
+s.name = "Ekta";
+s.password = "abc123";
+
+After deserialization:
+
+name = Ekta
+password = null
+
+password is null because transient fields are skipped.
+-----------------------------------------------------------------
+static Variables are NOT Serialized-
+
+Static belongs to class, not object.
+
+Example:
+
+static String college = "ABC";
+
+This is not stored during serialization.
