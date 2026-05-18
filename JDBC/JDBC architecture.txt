@@ -1,0 +1,181 @@
+1. DriverManager - class
+It helps Java connect to the database.
+A manager that finds the correct database driver and creates the connection.
+Example:
+Connection con = DriverManager.getConnection(url, user, password);
+You mostly use DriverManager to start database connection.
+
+2. Driver - interface
+A driver is software that allows Java to talk to a database.
+A translator between Java and MySQL/Oracle.
+Without driver → Java cannot understand database language
+Example:
+MySQL Driver
+Oracle Driver
+
+3. Connection - interface
+Represents the connection between Java program and database.
+A telephone call between Java and database.
+As long as connection exists, Java can send SQL queries.
+Example:
+Connection con;
+
+
+4. Statement - interface
+Used to send SQL queries to the database.
+Think of it like:
+A messenger that carries SQL commands.
+Example:
+Statement st = con.createStatement();
+st.executeQuery("SELECT * FROM student");
+Used for:
+INSERT
+UPDATE
+DELETE
+SELECT
+
+5. ResultSet - class
+Stores the data returned from the database after a SELECT query.
+A table of results.
+You move row by row through the data.
+Example:
+ResultSet rs = st.executeQuery("SELECT * FROM student");
+
+while(rs.next())
+{
+   System.out.println(rs.getString("name"));
+}
+
+rs.next() moves to next row.
+
+6. SQLException - class
+Handles database-related errors.
+An error catcher for database problems.
+
+Example:
+catch(SQLException e)
+{
+   System.out.println(e);
+}
+
+Possible errors:
+Wrong SQL query
+Database not connected
+Wrong username/password
+------------------------------------------------------------
+Real Life Example to Understand JDBC Architecture -
+Example: Ordering Food in a Restaurant
+
+Java Application	Customer
+JDBC API                Menu Card
+DriverManager	        Restaurant Manager
+JDBC Driver	        Waiter
+Database	        Kitchen
+ResultSet	        Food served
+SQLException	        Order/restaurant problem
+
+Step 1: Customer Gives Order
+(Customer = Java Program)
+Suppose a customer says: "I want Burger."
+Similarly, Java program sends SQL query:
+SELECT * FROM food;
+The Java application wants some data from database.
+
+Step 2: Menu Card Helps Communication
+(Menu Card = JDBC API)
+Customer uses menu card to:
+see available items
+place proper order
+
+Similarly JDBC API provides methods/classes like:
+Connection
+Statement
+ResultSet
+These help Java communicate properly with database.
+
+Step 3: Manager Finds Correct Waiter
+(Manager = DriverManager)
+Restaurant manager decides:
+"Which waiter should handle this order?"
+Similarly DriverManager:
+finds correct database driver
+creates connection with database
+Example:
+DriverManager.getConnection()
+
+Step 4: Waiter Takes Order to Kitchen
+(Waiter = JDBC Driver)
+Waiter understands:
+customer language
+kitchen language
+So waiter translates and delivers order.
+
+Similarly JDBC Driver:
+converts Java commands into database language
+sends them to database
+
+Step 5: Kitchen Prepares Food
+(Kitchen = Database)
+Kitchen receives order and prepares food.
+Similarly database:
+executes SQL query
+searches records
+processes data
+Example: SELECT * FROM student;
+Database finds all student records.
+
+Step 6: Waiter Brings Food Back
+(ResultSet = Returned Data)
+Waiter brings food to customer.
+Similarly ResultSet brings data back to Java.
+Example:
+ResultSet rs
+It contains rows and columns of data.
+
+Step 7: Customer Eats Food
+(Java Uses Data)
+Customer finally receives food.
+Similarly Java program displays or uses database data.
+
+Example:
+System.out.println(rs.getString("name"));
+
+What if Problem Happens?
+(SQLException)
+Suppose:
+kitchen closed
+wrong order
+waiter unavailable
+
+Restaurant gives error.
+
+Similarly JDBC throws:
+
+SQLException
+
+Examples:
+wrong password
+database not connected
+invalid SQL query
+------------------------------------------------------------
+DriverManager    	Creates connection
+Driver	                Connects Java with DB
+Connection	        Represents database connection
+Statement       	Sends SQL query
+ResultSet       	Stores output data
+SQLException    	Handles database errors
+--------------------------------------------------------------
+Advantages of JDBC -
+Platform Independent -	Works on all systems
+Easy Database Connection - Easy communication
+Supports Multiple Databases - MySQL, Oracle etc
+Secure - Supports authentication
+
+
+
+
+
+
+
+
+
