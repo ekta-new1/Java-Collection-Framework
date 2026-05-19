@@ -14,7 +14,7 @@ public class Demo {
 
             // Create Connection - This object stores connection between Java and MySQL.
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test2",
+                    "jdbc:mysql://localhost:3306/test",
                     "root",
                     "root"
             );  //Used to login into MySQL.
