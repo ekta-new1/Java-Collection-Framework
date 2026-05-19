@@ -1,19 +1,11 @@
-1. Install MySQL Server -
-https://dev.mysql.com/downloads/mysql/?
-
-username → usually root
-password → create your own password carefully
-
-2. MySQL Workbench
-
-3. JDBC Driver - https://dev.mysql.com/downloads/connector/j/
+ Install JDBC Driver - https://dev.mysql.com/downloads/connector/j/
 choose platform independent, download zip file
 extract the file, there will be one jar file.
 
-4. Go to intellijidea, file -> project structure -> libraries -> +icon -> java -> choose the jar file of the jdbc driver installed at step 3, select it and click ok.
+Go to intellijidea, file -> project structure -> libraries -> +icon -> java -> choose the jar file of the jdbc driver installed at step 3, select it and click ok.
 
 In Eclipse left side:
-Right click your project name.
+Right click your java class.
 Then click: Build Path → Configure Build Path
 Open Libraries Tab
 Click Libraries
@@ -24,14 +16,14 @@ Select it.
 Click: Open
 Click: Apply and Close
 
-5. Open workbench, select local instance MySQL97
+Open workbench, select local instance MySQL97
 type your password
 CREATE DATABASE test; 
 left side, schemas -> refresh
 USE test;
 CREATE TABLE Student ( id INT, name VARCHAR(50));
 
-6. Type the below code on your intellijidea -
+Type the below code on your intellijidea -
 import java.sql.Connection;      //Used to create connection between Java program and MySQL database
 import java.sql.DriverManager;   //It manages JDBC drivers.
 import java.sql.ResultSet;   //Stores data coming from database.
@@ -48,7 +40,7 @@ public class Demo {
 
             // Create Connection - This object stores connection between Java and MySQL.
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test2",
+                    "jdbc:mysql://localhost:3306/test",
                     "root",
                     "root"
             );  //Used to login into MySQL.
