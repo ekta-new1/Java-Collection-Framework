@@ -5,6 +5,15 @@ import java.sql.PreparedStatement;
 //In JDBC, PreparedStatement is used to send SQL queries to the database in a safe, faster, and easier way.
 //It protects database from hackers.
 
+//Write the below code in the database - 
+//CREATE DATABASE test;
+// USE test;
+// CREATE TABLE student1(
+// id INT, 
+// name VARCHAR(50),
+// age INT
+// );
+
 public class Demo1 {
 
     public static void main(String[] args) {
@@ -16,8 +25,8 @@ public class Demo1 {
 
             //Connects Java program with database.
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test",
-                    "root",
+                    "jdbc:mysql://localhost:3306/test",     //write your own database name
+                    "root",       //write your own username and password here
                     "root"
             );
 
